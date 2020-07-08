@@ -14,12 +14,14 @@ const orange = chalk.keyword('orange');
 (async () => {
     let spinner = ora({ spinner: 'dots4', hideCursor: true });
     try {
-        const { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env} = await options;
+        const { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, iam} = await options;
 
         // update the config of aws-sdk based on profile/credentials passed
         AWS.config.update({ region });
 
-        if (profile) {
+        if (iam) {
+            console.log("Got IAM role option...!!!")
+        } else if (profile) {
             AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile });
         } else if (key && secret) {
             AWS.config.credentials = new AWS.Credentials({
@@ -29,7 +31,7 @@ const orange = chalk.keyword('orange');
             AWS.config.credentials = new AWS.EnvironmentCredentials('AWS');
         } else if (metadata) {
             AWS.config.credentials = new AWS.EC2MetadataCredentials({});
-        } 
+        }
 
         const cognitoISP = new AWS.CognitoIdentityServiceProvider();
 

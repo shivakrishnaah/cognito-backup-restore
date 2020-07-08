@@ -100,6 +100,11 @@ export const argv = yargs
         alias: ['env'],
         describe: dimmed`Use credentials from environment variables.`,
         type: 'boolean'
+    }).option('use-iam-role', {
+        alias: ['iam'],
+        describe: dimmed`Use credentials from iam`,
+        // conflicts: ['metadata', 'profile'],
+        type: 'boolean'
     })
 
     // help

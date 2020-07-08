@@ -3,6 +3,7 @@ import * as fuzzy from 'fuzzy';
 import * as inquirer from 'inquirer';
 import chalk from 'chalk';
 import { argv } from './args';
+import { IAM } from 'aws-sdk';
 
 inquirer.registerPrompt('directory', require('inquirer-select-directory'));
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -32,7 +33,7 @@ const searchCognitoRegion = async (_: never, input: string) => {
 };
 
 const verifyOptions = async () => {
-    let { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env } = argv;
+    let { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, iam } = argv;
 
     // choose the mode if not passed through CLI or invalid is passed
     if (!mode || !['restore', 'backup'].includes(mode)) {
@@ -46,7 +47,7 @@ const verifyOptions = async () => {
         mode = modeChoice.selected.toLowerCase();
     }
 
-    if (!metadata && !env) {
+    if (!metadata && !env && !iam) {
         const credentials = new AWS.IniLoader().loadFrom({});
         const savedAWSProfiles = Object.keys(credentials);
 
@@ -59,7 +60,7 @@ const verifyOptions = async () => {
         };
         // choose your profile from available AWS profiles if not passed through CLI
         // only shown in case when no valid profile or no key && secret is passed.
-        if (!savedAWSProfiles.includes(profile) && (!key || !secret)) {
+        if (!savedAWSProfiles.includes(profile) && (!key || !secret || !iam)) {
             const awsProfileChoice = await inquirer.prompt({
                 type: 'autocomplete',
                 name: 'selected',
@@ -96,7 +97,7 @@ const verifyOptions = async () => {
             AWS.config.credentials = new AWS.EnvironmentCredentials('AWS');
         } else if (metadata) {
             AWS.config.credentials = new AWS.EC2MetadataCredentials({});
-        } 
+        }
 
         const cognitoISP = new AWS.CognitoIdentityServiceProvider();
         const { UserPools } = await cognitoISP.listUserPools({ MaxResults: 60 }).promise();
@@ -163,7 +164,7 @@ const verifyOptions = async () => {
             throw Error(`Cannot load password module path "${passwordModulePath}".`);
         }
     }
-    return { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env }
+    return { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, iam }
 };
 
 
