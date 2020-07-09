@@ -3,7 +3,6 @@ import * as fuzzy from 'fuzzy';
 import * as inquirer from 'inquirer';
 import chalk from 'chalk';
 import { argv } from './args';
-import { IAM } from 'aws-sdk';
 
 inquirer.registerPrompt('directory', require('inquirer-select-directory'));
 inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
@@ -35,6 +34,7 @@ const searchCognitoRegion = async (_: never, input: string) => {
 const verifyOptions = async () => {
     let { mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, iam } = argv;
 
+    console.log(argv)
     // choose the mode if not passed through CLI or invalid is passed
     if (!mode || !['restore', 'backup'].includes(mode)) {
         const modeChoice = await inquirer.prompt<{ selected: string }>({
