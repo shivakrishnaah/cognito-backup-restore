@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.options = void 0;
 var AWS = require("aws-sdk");
 var fuzzy = require("fuzzy");
 var inquirer = require("inquirer");
@@ -70,11 +69,12 @@ var searchCognitoRegion = function (_, input) { return __awaiter(void 0, void 0,
     });
 }); };
 var verifyOptions = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, modeChoice, credentials, savedAWSProfiles_1, searchAWSProfile, awsProfileChoice, awsRegionChoice, cognitoISP, UserPools, userPoolList_1, searchCognitoPool, cognitoPoolChoice, directoryLocation, fileLocation, pwdModule;
+    var mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, iam, modeChoice, credentials, savedAWSProfiles_1, searchAWSProfile, awsProfileChoice, awsRegionChoice, cognitoISP, UserPools, userPoolList_1, searchCognitoPool, cognitoPoolChoice, directoryLocation, fileLocation, pwdModule;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                mode = args_1.argv.mode, profile = args_1.argv.profile, region = args_1.argv.region, key = args_1.argv.key, secret = args_1.argv.secret, userpool = args_1.argv.userpool, directory = args_1.argv.directory, file = args_1.argv.file, password = args_1.argv.password, passwordModulePath = args_1.argv.passwordModulePath, delay = args_1.argv.delay, metadata = args_1.argv.metadata, env = args_1.argv.env;
+                mode = args_1.argv.mode, profile = args_1.argv.profile, region = args_1.argv.region, key = args_1.argv.key, secret = args_1.argv.secret, userpool = args_1.argv.userpool, directory = args_1.argv.directory, file = args_1.argv.file, password = args_1.argv.password, passwordModulePath = args_1.argv.passwordModulePath, delay = args_1.argv.delay, metadata = args_1.argv.metadata, env = args_1.argv.env, iam = args_1.argv.iam;
+                console.log(args_1.argv);
                 if (!(!mode || !['restore', 'backup'].includes(mode))) return [3 /*break*/, 2];
                 return [4 /*yield*/, inquirer.prompt({
                         type: 'list',
@@ -87,7 +87,7 @@ var verifyOptions = function () { return __awaiter(void 0, void 0, void 0, funct
                 mode = modeChoice.selected.toLowerCase();
                 _a.label = 2;
             case 2:
-                if (!(!metadata && !env)) return [3 /*break*/, 5];
+                if (!(!metadata && !env && !iam)) return [3 /*break*/, 5];
                 credentials = new AWS.IniLoader().loadFrom({});
                 savedAWSProfiles_1 = Object.keys(credentials);
                 searchAWSProfile = function (_, input) { return __awaiter(void 0, void 0, void 0, function () {
@@ -100,7 +100,7 @@ var verifyOptions = function () { return __awaiter(void 0, void 0, void 0, funct
                             })];
                     });
                 }); };
-                if (!(!savedAWSProfiles_1.includes(profile) && (!key || !secret))) return [3 /*break*/, 4];
+                if (!(!savedAWSProfiles_1.includes(profile) && (!key || !secret || !iam))) return [3 /*break*/, 4];
                 return [4 /*yield*/, inquirer.prompt({
                         type: 'autocomplete',
                         name: 'selected',
@@ -215,7 +215,7 @@ var verifyOptions = function () { return __awaiter(void 0, void 0, void 0, funct
                         throw Error("Cannot load password module path \"" + passwordModulePath + "\".");
                     }
                 }
-                return [2 /*return*/, { mode: mode, profile: profile, region: region, key: key, secret: secret, userpool: userpool, directory: directory, file: file, password: password, passwordModulePath: passwordModulePath, delay: delay, metadata: metadata, env: env }];
+                return [2 /*return*/, { mode: mode, profile: profile, region: region, key: key, secret: secret, userpool: userpool, directory: directory, file: file, password: password, passwordModulePath: passwordModulePath, delay: delay, metadata: metadata, env: env, iam: iam }];
         }
     });
 }); };

@@ -50,7 +50,7 @@ var red = chalk_1.default.red;
 var green = chalk_1.default.green;
 var orange = chalk_1.default.keyword('orange');
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var spinner, _a, mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, cognitoISP, error_1;
+    var spinner, _a, mode, profile, region, key, secret, userpool, directory, file, password, passwordModulePath, delay, metadata, env, iam, cognitoISP, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -60,10 +60,13 @@ var orange = chalk_1.default.keyword('orange');
                 _b.trys.push([1, 8, , 9]);
                 return [4 /*yield*/, options_1.options];
             case 2:
-                _a = _b.sent(), mode = _a.mode, profile = _a.profile, region = _a.region, key = _a.key, secret = _a.secret, userpool = _a.userpool, directory = _a.directory, file = _a.file, password = _a.password, passwordModulePath = _a.passwordModulePath, delay = _a.delay, metadata = _a.metadata, env = _a.env;
+                _a = _b.sent(), mode = _a.mode, profile = _a.profile, region = _a.region, key = _a.key, secret = _a.secret, userpool = _a.userpool, directory = _a.directory, file = _a.file, password = _a.password, passwordModulePath = _a.passwordModulePath, delay = _a.delay, metadata = _a.metadata, env = _a.env, iam = _a.iam;
                 // update the config of aws-sdk based on profile/credentials passed
                 AWS.config.update({ region: region });
-                if (profile) {
+                if (iam) {
+                    console.log("Got IAM role option...!!!");
+                }
+                else if (profile) {
                     AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: profile });
                 }
                 else if (key && secret) {
@@ -99,6 +102,7 @@ var orange = chalk_1.default.keyword('orange');
             case 7: return [3 /*break*/, 9];
             case 8:
                 error_1 = _b.sent();
+                console.error(error_1);
                 spinner.fail(red(error_1.message));
                 return [3 /*break*/, 9];
             case 9: return [2 /*return*/];

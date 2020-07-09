@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.restoreUsers = exports.backupUsers = void 0;
 var fs = require("fs");
 var path = require("path");
 var bottleneck_1 = require("bottleneck");

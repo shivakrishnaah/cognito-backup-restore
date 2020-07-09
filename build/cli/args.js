@@ -4,7 +4,6 @@ var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cook
     return cooked;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.argv = void 0;
 var yargs = require("yargs");
 var chalk_1 = require("chalk");
 var dimmed = chalk_1.default.dim;
@@ -99,17 +98,22 @@ exports.argv = yargs
     alias: ['env'],
     describe: dimmed(templateObject_18 || (templateObject_18 = __makeTemplateObject(["Use credentials from environment variables."], ["Use credentials from environment variables."]))),
     type: 'boolean'
+}).option('use-iam-role', {
+    alias: ['iam'],
+    describe: dimmed(templateObject_19 || (templateObject_19 = __makeTemplateObject(["Use credentials from iam"], ["Use credentials from iam"]))),
+    // conflicts: ['metadata', 'profile'],
+    type: 'boolean'
 })
     // help
-    .help('help', dimmed(templateObject_19 || (templateObject_19 = __makeTemplateObject(["Show help"], ["Show help"]))))
+    .help('help', dimmed(templateObject_20 || (templateObject_20 = __makeTemplateObject(["Show help"], ["Show help"]))))
     .alias('help', 'h')
-    .showHelpOnFail(false, bold(templateObject_20 || (templateObject_20 = __makeTemplateObject(["Specify --help for available options"], ["Specify --help for available options"]))))
+    .showHelpOnFail(false, bold(templateObject_21 || (templateObject_21 = __makeTemplateObject(["Specify --help for available options"], ["Specify --help for available options"]))))
     // version
-    .version('version', dimmed(templateObject_21 || (templateObject_21 = __makeTemplateObject(["Show version number"], ["Show version number"]))), (function () { return version; })())
+    .version('version', dimmed(templateObject_22 || (templateObject_22 = __makeTemplateObject(["Show version number"], ["Show version number"]))), (function () { return version; })())
     .alias('version', 'v')
     // footer
-    .epilog(dimmed(templateObject_22 || (templateObject_22 = __makeTemplateObject(["\nPlease report any issues/suggestions here:\nhttps://github.com/rahulpsd18/cognito-backup-restore/issues\n"], ["\\nPlease report any issues/suggestions here:\\nhttps://github.com/rahulpsd18/cognito-backup-restore/issues\\n"]))))
+    .epilog(dimmed(templateObject_23 || (templateObject_23 = __makeTemplateObject(["\nPlease report any issues/suggestions here:\nhttps://github.com/rahulpsd18/cognito-backup-restore/issues\n"], ["\\nPlease report any issues/suggestions here:\\nhttps://github.com/rahulpsd18/cognito-backup-restore/issues\\n"]))))
     .strict()
     .wrap(Math.min(120, yargs.terminalWidth()))
     .argv;
-var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22;
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8, templateObject_9, templateObject_10, templateObject_11, templateObject_12, templateObject_13, templateObject_14, templateObject_15, templateObject_16, templateObject_17, templateObject_18, templateObject_19, templateObject_20, templateObject_21, templateObject_22, templateObject_23;

@@ -1,1 +1,2 @@
-export declare const argv: any;
+import * as yargs from 'yargs';
+export declare const argv: yargs.Arguments;

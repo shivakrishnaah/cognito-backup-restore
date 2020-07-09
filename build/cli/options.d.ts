@@ -12,4 +12,5 @@ export declare const options: Promise<{
     delay: any;
     metadata: any;
     env: any;
+    iam: any;
 }>;
