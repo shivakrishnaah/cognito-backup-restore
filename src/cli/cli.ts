@@ -47,6 +47,7 @@ const orange = chalk.keyword('orange');
             spinner.fail(red`Mode passed is invalid, please make sure a valid command is passed here.\n`);
         }
     } catch (error) {
+        console.error(error);
         spinner.fail(red(error.message));
     }
 })();
